@@ -1,0 +1,305 @@
+/* ============================================
+   EYE 2 I — Animations & Interactions
+   ============================================ */
+
+/* --- Scroll Reveal Animations --- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.1s; }
+.stagger-3 { transition-delay: 0.15s; }
+.stagger-4 { transition-delay: 0.2s; }
+.stagger-5 { transition-delay: 0.25s; }
+.stagger-6 { transition-delay: 0.3s; }
+.stagger-7 { transition-delay: 0.35s; }
+.stagger-8 { transition-delay: 0.4s; }
+
+/* --- Floating / Pulsing Hero Elements --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 170, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(0, 170, 255, 0.4), 0 0 80px rgba(124, 58, 237, 0.2); }
+}
+
+.float { animation: float 6s ease-in-out infinite; }
+.float-slow { animation: floatSlow 8s ease-in-out infinite; }
+.pulse { animation: pulse 3s ease-in-out infinite; }
+.pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+
+/* --- Hover Glow Effects on Cards --- */
+.glow-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(0, 170, 255, 0.08), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-hover:hover::after {
+  width: 400px;
+  height: 400px;
+}
+
+.glow-hover > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Animated Gradient Border --- */
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--neon-blue), var(--violet), var(--neon-blue));
+  background-size: 200% 200%;
+  animation: borderGradient 4s ease infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* --- Parallax Layer --- */
+.parallax-layer {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* --- Animated Counter --- */
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.counter-animated {
+  display: inline-block;
+}
+
+.counter-animated.counting {
+  animation: countPulse 0.1s ease;
+}
+
+/* --- Testimonial Auto-scroll Indicator --- */
+@keyframes scrollIndicator {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(10px); }
+}
+
+.scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+}
+
+.scroll-indicator i {
+  animation: scrollIndicator 1s ease-in-out infinite alternate;
+}
+
+/* --- Ripple Effect on Buttons --- */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple .ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* --- Typewriter Effect --- */
+@keyframes blink {
+  0%, 50% { border-color: var(--neon-blue); }
+  51%, 100% { border-color: transparent; }
+}
+
+.typewriter {
+  border-right: 2px solid var(--neon-blue);
+  animation: blink 1s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* --- Spinning Loader --- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-glass);
+  border-top: 2px solid var(--neon-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* --- Gradient mesh background animation --- */
+@keyframes gradientMesh {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+  25% {
+    background-position: 100% 0%, 0% 100%, 50% 0%;
+  }
+  50% {
+    background-position: 100% 100%, 0% 0%, 0% 50%;
+  }
+  75% {
+    background-position: 0% 100%, 100% 0%, 100% 50%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+}
+
+.gradient-mesh-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 50%, rgba(0,170,255,0.1), transparent),
+    radial-gradient(ellipse 35% 40% at 80% 20%, rgba(124,58,237,0.08), transparent),
+    radial-gradient(ellipse 30% 25% at 50% 80%, rgba(0,200,255,0.06), transparent);
+  animation: gradientMesh 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* --- Noise Texture Overlay --- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+/* --- Page transition --- */
+.page-transition {
+  animation: pageIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
